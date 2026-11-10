@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   if (!key) return NextResponse.next(); // sin clave: modo abierto (desarrollo)
 
   const { pathname } = req.nextUrl;
-  if (pathname === "/login" || pathname === "/api/login") return NextResponse.next();
+  if (pathname === "/login" || pathname === "/api/login" || pathname === "/api/health") return NextResponse.next();
 
   const cookie = req.cookies.get(SESSION_COOKIE)?.value ?? "";
   const expected = await sessionToken(key);

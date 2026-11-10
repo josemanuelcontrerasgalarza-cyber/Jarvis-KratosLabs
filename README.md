@@ -4,7 +4,7 @@ Asistente personal de IA que vive en la nube: **Mistral Large** como cerebro, **
 
 ## Características
 
-- 🧠 **Mistral Large** (`mistral-large-latest`) con respuestas en streaming.
+- 🧠 **Mistral Large 4** vía **NVIDIA NIM** (`mistralai/mistral-large-4-1t-a52b`), o la API oficial de Mistral (`mistral-large-latest`), con respuestas en streaming.
 - 🛠 **Agente con herramientas** (function calling, hasta 5 rondas por mensaje):
   - `get_datetime`: fecha y hora en cualquier zona horaria
   - `get_weather`: clima actual y pronóstico de 3 días (Open-Meteo, sin clave)
@@ -25,8 +25,11 @@ Asistente personal de IA que vive en la nube: **Mistral Large** como cerebro, **
 
 > También puedes añadir Neon desde Vercel: **Storage → Neon**, que crea `DATABASE_URL` automáticamente.
 
-### 2. Mistral
-Crea una API key en <https://console.mistral.ai/api-keys>.
+### 2. Modelo
+- **NVIDIA NIM** (recomendado): crea una API key en <https://build.nvidia.com> y ponla en `NVIDIA_API_KEY`.
+- **Mistral**: crea una API key en <https://console.mistral.ai/api-keys> y ponla en `MISTRAL_API_KEY`.
+
+Si existen ambas, se usa NVIDIA.
 
 ### 3. Local
 ```bash
@@ -41,7 +44,10 @@ npm run dev                  # http://localhost:3000
 
 | Variable | Obligatoria | Descripción |
 |---|---|---|
-| `MISTRAL_API_KEY` | ✅ | API key de Mistral |
+| `NVIDIA_API_KEY` | ✅ (o Mistral) | API key de NVIDIA NIM |
+| `NVIDIA_MODEL` | – | Por defecto `mistralai/mistral-large-4-1t-a52b` |
+| `NVIDIA_REASONING_EFFORT` | – | `low`, `medium` (defecto) o `high` |
+| `MISTRAL_API_KEY` | – | Alternativa: API key de Mistral |
 | `DATABASE_URL` | ✅ | Cadena de conexión de Neon |
 | `JARVIS_ACCESS_KEY` | ✅ en producción | Contraseña para entrar. **Sin ella la app queda abierta a cualquiera.** |
 | `MISTRAL_MODEL` | – | Por defecto `mistral-large-latest` |
@@ -49,6 +55,7 @@ npm run dev                  # http://localhost:3000
 | `JARVIS_TIMEZONE` | – | Zona IANA, p.ej. `Europe/Madrid` o `America/Mexico_City` |
 
 3. Deploy. 🚀
+4. Diagnóstico: abre `/api/health?key=TU_JARVIS_ACCESS_KEY&ping=1` para comprobar el modelo y la base de datos.
 
 ## Estructura
 
